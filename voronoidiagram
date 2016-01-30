@@ -1,0 +1,21 @@
+ load outputwithjustxandy.txt
+// to load the file first
+outputwithjustxandy=unique(outputwithjustxandy,'rows')
+
+x=outputwithjustxandy(:,1)
+y=outputwithjustxandy(:,2)
+
+[V,C]=voronoin(outputwithjustxandy)
+[V,C]=voronoin([x,y])
+A=zeros(length(C),1)
+for i = 1:length(C)
+A[i]=polyarea(V(C{i},1),V(C{i},2))
+end
+M=[x,y,A]
+
+S=S(~any(isnan(S),2),:)
+
+dlmwrite('myfile.txt',M,'delimiter',' ','precision','%6.6f');
+
+TF=s4(:,3)>=10;
+s9(TF,:)=[];
