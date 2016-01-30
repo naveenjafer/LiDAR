@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define LINE_LEN 100
+int main ( void )
+{
+    float thres_min=24.46258;
+    float thres_max=32.58322;
+    char line[LINE_LEN];
+    int sum, i, read_cnt;
+    float numbers[7];//sum and i are there for my example usage
+    FILE *out = fopen("outputwithjustxandy.xyz","w");
+    FILE *in = fopen("input.xyz", "r");//open file
+    if (in == NULL)
+    {
+        fprintf(stderr, "File could not be opened\n");
+        exit( EXIT_FAILURE);
+    }
+    float min=10000;
+    while((fgets(line, LINE_LEN, in)) != NULL)
+    {//read the line
+        //scan 5 numbers, sscanf returns the number of values it managed to extract
+        read_cnt = sscanf(
+            line,
+            "%f %f %f %f %f %f %f",
+            &numbers[0],
+            &numbers[1],
+            &numbers[2],
+            &numbers[3],
+            &numbers[4],
+            &numbers[5],
+            &numbers[6]
+        );
+        //if(numbers[2]<min)
+        //    min=numbers[2];
+        if(numbers[3]<=35.58322 && numbers[3]>=21.46258 && numbers[2]<=426.14)
+        {
+            numbers[6]=1;
+        }
+        else
+        {
+            numbers[6]=0;
+        }
+        if(numbers[1]>851350.44 ) // only the top part of the map that is required.
+            fprintf(out,"%f %f \n",numbers[0],numbers[1]);
+        
+        //check to see if we got all 5 ints
+  	
+    }
+   // printf("%f",min);
+    return EXIT_SUCCESS;
+}
